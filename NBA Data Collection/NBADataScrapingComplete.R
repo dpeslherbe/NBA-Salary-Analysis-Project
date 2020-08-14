@@ -103,6 +103,63 @@ names(DataSal)[1] <- 'Season'
 names(DataSal)[2] <- 'names'
 names(DataSal)[3] <- 'contracts'
 DataSal[,3] <- as.numeric(DataSal[,3])
+DataSal <- cbind(DataSal, rep(0, dim(DataSal)[1]))
+
+##Web scraping to get yearly salary cap info
+url <- 'https://basketball.realgm.com/nba/info/salary_cap'
+webpage <- read_html(url)
+salarycap <- webpage %>%
+   html_nodes('.page_title+ .compact td:nth-child(4)') %>%
+   html_text()
+##text formatting
+salarycap <- sub('.', '', salarycap)
+salarycap <- sub(',', '', salarycap)
+salarycap <- sub(',', '', salarycap)
+salarycap <- as.numeric(salarycap)
+##build years vector
+years <- 1984
+for (i in 1:length(salarycap)-1) {
+   years <- c(years, years[i]+1)
+}
+years <- as.numeric(years)
+for (i in 1:length(years)) {
+   if(years[i] >= 1980 && years[i] < 1989){
+      years[i] <- paste0(years[i], '-8', (as.numeric(years[i])-1979))
+   }
+   if(years[i] >= 1989 && years[i] < 1999){
+      years[i] <- paste0(years[i], '-9', (as.numeric(years[i]) -1989))
+   }
+   if(years[i] >= 1999 && years[i] < 2009){
+      years[i] <- paste0(years[i], '-0', (as.numeric(years[i]) -1999))
+   }
+   if(years[i] >= 2009 && years[i] < 2019){
+      years[i] <- paste0(years[i], '-1', (as.numeric(years[i]) -2009))
+   }
+   if(years[i] >= 2019 && years[i] < 2029){
+      years[i] <- paste0(years[i], '-2', (as.numeric(years[i]) -2019))
+   }
+}
+##remove wrong information (extra year due to to 1986-87 appearing twice
+##while web scraping)
+years <- years[-45]
+salarycap <- salarycap[-43]
+##build the dataset containing years and associated salary cap
+salaryset <- c()
+for (i in 1:length(salarycap)) {
+   salaryset <- rbind(salaryset, c(years[i], salarycap[length(salarycap)-(i-1)]))
+}
+
+
+##convert salary measures into cap percentages
+for (i in 1:dim(salaryset)[1]) {
+   for (j in 1:dim(DataSal)[1]) {
+      if(salaryset[i,1] == DataSal[j,1]){
+         DataSal[j,4] <- as.numeric(DataSal[j,3])/as.numeric(salaryset[i,2]) 
+      } 
+   }
+}
+
+
 
 ##Get Player Season Data from 1990-1991 to 2019-2020 from basketball-reference.com
 bref_players_stats(seasons = c(1991:2020), tables = c("per_game", "advanced"))
