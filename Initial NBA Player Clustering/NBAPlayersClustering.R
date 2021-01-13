@@ -137,7 +137,7 @@ plot(k[2:24], type = 'b', ssimprov, xlab = 'Number of clusters', ylab = 'Average
 optstatk <- which.max(ssimprov)+2
 optstatk
 
-ClusterStatResult <- kmeans(DataPCA, centers = optk, nstart = 500)
+ClusterStatResult <- kmeans(DataPCA, centers = optstatk, nstart = 500)
 DataClustered <- cbind(DataMasterFiltered, ClusterStatResult$cluster)
 
 ##Let us reapply this on our advanced metrics
@@ -225,7 +225,7 @@ plot(seq(3,max(k)), type = 'b', ssimprov, xlab = 'Number of clusters', ylab = 'A
 optadvk <- which.max(ssimprov)+2
 optadvk
 
-ClusterAdvResult <- kmeans(DataPCA, centers = optk, nstart = 500)
+ClusterAdvResult <- kmeans(DataPCA, centers = optadvk, nstart = 500)
 DataClustered <- cbind(DataClustered, ClusterAdvResult$cluster)
 DataClustered <- DataClustered %>% rename(StatsCluster = `ClusterStatResult$cluster`,
          AdvCluster = `ClusterAdvResult$cluster`,
