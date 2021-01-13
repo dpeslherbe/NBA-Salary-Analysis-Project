@@ -32,11 +32,11 @@ To reduce the number of variables used, we use Principal Component Analysis; the
 
 Note that to get a better idea of player value, we must take our statistics relative to league average (this helps mitigate the effects of changes in the way the game is and has been played throughout the years, with the changes in shot selection and game analytics becoming more common place nowadays, by classifying the best scorers or the most efficient shooters relative to league average that year, and then scaling every year together as well).
 
-Note that we first cluster players based on diret stats only, then again with advanced metrics related to game winning impact i.e. WS, VROP, etc...
+Note that we first cluster players based on direct stats only, then again with advanced metrics related to game winning impact i.e. WS, VROP, etc...
 
 Then, to reduce the number of variables to work with, we set a variance threshold of 90%; this means we will only retain the Principal Components that explain 90% or more of the variance (in the case of the first Cluster Analysis, we have 10, and for the second, we have 2).
 
-Typical methods such as the Elbow Method, Silhouette Method, Gap Statistic Method and NbClust Method might give us the best number of clusters to choose in this case, but here we are no searching for the best number of clusters, since having 2 clusters would likely indicate which players had a good season which year, and who did not; here, we wish to quantify a player's season in more terms than just good or bad (e.g. statistically good, but low winning impact, big winning impact with low usage, star player types, etc...).
+Typical methods such as the Elbow Method, Silhouette Method, Gap Statistic Method and NbClust Method might give us the best number of clusters to choose in this case, but here we are not searching for the best number of clusters, since having 2 clusters would likely indicate which players had a good season which year, and who did not; here, we wish to quantify a player's season in more terms than just good or bad (e.g. statistically good, but low winning impact, big winning impact with low usage, star player types, etc...).
 
 Thus, we start by modifying the Silhouette Score function, previously developped for the Pokemon Strength Analysis, to calculate the average silhouette scores for multiple numbers of clusters. Then, instead of looking at the best silhouette score, we look at silhouette score improvement, i.e. how much more information do we get from the clustering by adding an extra cluster. For the first Cluster Analysis, we then get 8 clusters, and 5 for the second Cluster Analysis of Advanced Metrics.
 
