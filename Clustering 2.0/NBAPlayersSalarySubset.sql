@@ -47,7 +47,7 @@ SET salaryperc = contracts / salarycap;
 
 SELECT salarycap, salaryperc FROM nbaplayers
 
-SELECT names, salaryperc, fg2mPerGame, pctFG2, fg3mPerGame, pctFG3, ftmPerGame, pctFT, drbPerGame, orbPerGame, astPerGame, blkPerGame, stlPerGame, tovPerGame, minutesPerGame, ratioOWS, ratioDWS, ratioOBPM, ratioDBPM, ratioVORP FROM nbaplayers
+SELECT names, Season, salaryperc, fg2mPerGame, pctFG2, fg3mPerGame, pctFG3, ftmPerGame, pctFT, drbPerGame, orbPerGame, astPerGame, blkPerGame, stlPerGame, tovPerGame, minutesPerGame, ratioOWS, ratioDWS, ratioOBPM, ratioDBPM, ratioVORP FROM nbaplayers
 WHERE minutesPerGame > 24
 AND countGames > 41
 ORDER BY ptsPerGame DESC
