@@ -22,7 +22,7 @@ We then re-name all the players in DataStats with this issue, and use na.omit to
 
 Then, we export our Final Data Set as CSV for ease of use in the future.
 
-## Initial Clustering Attempt
+## Clustering 1.0
 
 Using the Data Set created before, we start by filtering through the players used; for the clustering and the analysis to have any value, we must be sure that the players selected correspond to certains minimum criteria. In this case, since we are looking at performance, we can disregard the player salary for now, and we make sure to filter players who have little impact on a game. For this part, the criteria chosen were a minimum of 41 Games played (so at least half the season), and a minimum of 12 Minutes per Game (at least a Quarter of Total Game Played on Average).
 
@@ -43,3 +43,7 @@ Thus, we start by modifying the Silhouette Score function, previously developped
 Note that overall, this gives a very high number of clusters (38, since two of the combinations are empty. We do notice that the eight clusters from the first cluster analysis also separate players into roles according to their counting stats, and importance in a game (star guards/wings, star bigs, rim-running bigs, shooters, etc...), and the second cluster analysis separates players into game impact categories (two-way players, good offence/bad defense, bad offence/good defense, net-negative on the court, etc...).
 
 This number of combinations is too big to be truly explored in depth, thus we will have to find a way to reduce the overall number of clusters, or only focus on certain combined clusters for the rest of the analysis (This is still to be determined, and no decision has been made or explored yet; please feel free to reach out for any questions, ideas, or suggestions at this time).
+
+## Clustering 2.0 (Work In Progress)
+
+The Inital Data Set was loaded into a personal SQL database for storage purposes. Since our initial clustering was not very indicative or useful, we decide to revisit the project once more with a more experienced perspective. For this attempt, we kept our 41 games played minimum, but brought the minutes per game requirement up to 24 minutes. We use our SQL script to parse the data and then export it as a CSV file for use in R.
